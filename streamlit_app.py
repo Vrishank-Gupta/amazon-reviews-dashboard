@@ -84,6 +84,12 @@ selected_sentiment = st.sidebar.multiselect(
     default=["Negative"]
 )
 
+selected_ratings = st.sidebar.multiselect(
+    "Rating",
+    options=sorted(df["rating"].dropna().unique()),
+    # default=[1, 2, 3]
+)
+
 all_products = sorted(df["product_name"].dropna().unique())
 
 selected_products = st.sidebar.multiselect(
@@ -102,13 +108,21 @@ if selected_category != "All":
         )
     ]
 
-filtered_df = filtered_df[
-    filtered_df["sentiment"].isin(selected_sentiment)
-]
 
-filtered_df = filtered_df[
-    filtered_df["product_name"].isin(selected_products)
-]
+if selected_sentiment:
+    filtered_df = filtered_df[
+        filtered_df["sentiment"].isin(selected_sentiment)
+    ]
+
+if selected_ratings:
+    filtered_df = filtered_df[
+        filtered_df["rating"].isin(selected_ratings)
+    ]
+
+if selected_products:
+    filtered_df = filtered_df[
+        filtered_df["product_name"].isin(selected_products)
+    ]
 
 st.sidebar.divider()
 st.sidebar.header("⚙️ Data Pipeline")

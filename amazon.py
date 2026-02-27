@@ -128,7 +128,6 @@ for page in range(1, MAX_PAGES + 1):
         break
 
 
-#writing to csv
 if reviews_data:
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(
